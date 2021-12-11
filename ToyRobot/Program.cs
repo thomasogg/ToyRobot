@@ -7,19 +7,16 @@ using System.Diagnostics;
 
 namespace ToyRobot
 {
-   public class Program
+    public class Program
     {
         // Public variables for the x & y axis of the grid.
 
-       public int x = 0;
-       public int y = 0;
-       public bool placed = false;
-       public string currentdir = string.Empty;
+    
 
         public static void Main(string[] args)
         {
 
-            Program ToyRobot = new Program();
+          ToyRobot toyrobot = new ToyRobot();   
 
             // Console text on how to use and commands.
 
@@ -51,39 +48,40 @@ namespace ToyRobot
             do
 
             {
+                
                 string input;
                 input = Console.ReadLine();
 
                 // Splits the PLACE command into a string array for arguements.
 
-                string[] inputsplit = input.Split(' ',',');
+                string[] inputsplit = input.Split(' ', ',');
 
                 // Command section. Will only accept other commands once the robot has been successfully placed.
 
-                if (ToyRobot.placed == true)
+                if (toyrobot.placed)
                 {
                     switch (inputsplit[0])
                     {
                         case "PLACE":
-                        
-                           ToyRobot.Place(Int32.Parse(inputsplit[1]), Int32.Parse(inputsplit[2]), ToyRobot.currentdir);
+
+                            toyrobot.Place(Int32.Parse(inputsplit[1]), Int32.Parse(inputsplit[2]), toyrobot.currentdirection);
                             break;
 
 
                         case "MOVE":
-                            ToyRobot.Move(ToyRobot.currentdir);
+                            toyrobot.Move();
                             break;
 
                         case "LEFT":
-                            ToyRobot.TurnLeft(ToyRobot.currentdir);
+                            toyrobot.TurnLeft();
                             break;
 
                         case "RIGHT":
-                            ToyRobot.TurnRight(ToyRobot.currentdir);
+                            toyrobot.TurnRight();
                             break;
 
                         case "REPORT":
-                            ToyRobot.Report();
+                            Console.WriteLine("{0},{1},{2}", toyrobot.x, toyrobot.y, toyrobot.currentdirection);
                             break;
 
                         default:
@@ -102,10 +100,10 @@ namespace ToyRobot
                     switch (inputsplit[0])
                     {
                         case "PLACE":
-                   
 
 
-                           ToyRobot.Place(Int32.Parse(inputsplit[1]), Int32.Parse(inputsplit[2]), inputsplit[3]);
+
+                            toyrobot.Place(Int32.Parse(inputsplit[1]), Int32.Parse(inputsplit[2]), inputsplit[3]);
                             break;
 
 
@@ -134,192 +132,7 @@ namespace ToyRobot
 
         }
 
-        public void Place(int row, int col, string direction)
-
-        {
-            // Ensures lower case inputs are accepted.
-
-            direction = direction.ToUpper();
-
-
-            // Sets the first direction when robot is placed.
-
-            switch (direction)
-            {
-                case "NORTH":
-                    currentdir = direction;
-                    break;
-
-                case "EAST":
-                    currentdir = direction;
-                    break;
-
-                case "SOUTH":
-                    currentdir = direction;
-                    break;
-                case "WEST":
-                    currentdir = direction;
-                    break;
-                default:
-                    Console.WriteLine("Provided direction isn't in a valid format");
-                    break;
-
-
-            }
-
-
-
-
-            // Checking to see if provided x & y values are inside the grid.
-
-
-            if (!(Enumerable.Range(0, 6).Contains(row) && (Enumerable.Range(0, 6).Contains(col))))
-            {
-                Console.WriteLine("Provided X & Y values aren't inside a 6x6 grid");
-
-
-            }
-            else
-            {
-
-                x = row;
-                y = col;
-                placed = true;
-
-
-            }
-
-
-
-        }
-
-        public void Move(string direction)
-
-        {
-            
-
-            // Uses the current direction to determine if moves is out of bounds, otherwise robot is moved.
-            switch (direction)
-            {
-                case "NORTH":
-                    if (y + 1 > 5)
-                    {
-                        Console.WriteLine("Can't move {0}!", direction);
-                    }
-                    else
-                    {
-                        y = y + 1; ;
-                        Console.WriteLine("You moved {0}!", direction);
-                    }
-                    break;
-
-                case "EAST":
-                    currentdir = direction;
-                    if (x + 1 > 5)
-                    {
-                        Console.WriteLine("Can't move {0}!", direction);
-                    }
-                    else
-                    {
-                        x = x + 1;
-                        Console.WriteLine("You moved {0}!", direction);
-                    }
-                    break;
-
-
-                case "SOUTH":
-                    if (y - 1 < 0)
-                    {
-                        Console.WriteLine("Can't move {0}!", direction);
-
-                    }
-                    else
-                    {
-                        y = y - 1;
-                        Console.WriteLine("You moved {0}!", direction);
-                    }
-
-                    break;
-                case "WEST":
-                    if (x - 1 < 0)
-                    {
-                        Console.WriteLine("Can't move {0}!", direction);
-                    }
-                    else
-                    {
-                        x = x - 1;
-                        Console.WriteLine("You moved {0}!", direction);
-                    }
-                    break;
-
-
-            }
-           
-
-
-        }
-
-        public void TurnLeft(string direction)
-        {
-           
-
-                switch (direction)
-                {
-                    case "NORTH":
-                        currentdir = "WEST";
-                        break;
-
-                    case "EAST":
-                        currentdir = "NORTH";
-                        break;
-
-                    case "SOUTH":
-                        currentdir = "EAST";
-                        break;
-                    case "WEST":
-                        currentdir = "SOUTH";
-                        break;
-
-                }
-
-
-           
-        }
-
-        public void TurnRight(string direction)
-        {
-
-            
-                switch (direction)
-                {
-                    case "NORTH":
-                        currentdir = "EAST";
-                        break;
-
-                    case "EAST":
-                        currentdir = "SOUTH";
-                        break;
-
-                    case "SOUTH":
-                        currentdir = "WEST";
-                        break;
-                    case "WEST":
-                        currentdir = "NORTH";
-                        break;
-
-                }
-
-            
-
-        }
-
-        public void Report()
-
-        {
-
-                Console.WriteLine("{0},{1},{2}", x, y, currentdir);
-
-        }
+        
 
 
 
