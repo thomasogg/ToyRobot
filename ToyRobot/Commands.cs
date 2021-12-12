@@ -15,8 +15,8 @@ namespace ToyRobot
         public int maxrow { get; set; } = 5;
 
         public int maxcol { get; set; } = 5;
-        public bool placed { get; set; } = false; 
-        
+        public bool placed { get; set; } = false;
+
         public string currentdirection = string.Empty;
 
 
@@ -71,7 +71,7 @@ namespace ToyRobot
                 y = col;
                 placed = true;
 
-               
+
 
 
             }
@@ -206,12 +206,6 @@ namespace ToyRobot
 
         }
 
-        public void Report()
-
-        {
-
-
-
-        }
+     
     }
 }
