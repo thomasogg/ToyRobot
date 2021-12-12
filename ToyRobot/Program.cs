@@ -11,12 +11,12 @@ namespace ToyRobot
     {
         // Public variables for the x & y axis of the grid.
 
-    
+
 
         public static void Main(string[] args)
         {
 
-          ToyRobot toyrobot = new ToyRobot();   
+            ToyRobot toyrobot = new ToyRobot();
 
             // Console text on how to use and commands.
 
@@ -48,13 +48,19 @@ namespace ToyRobot
             do
 
             {
-                
+
                 string input;
                 input = Console.ReadLine();
 
                 // Splits the PLACE command into a string array for arguements.
 
                 string[] inputsplit = input.Split(' ', ',');
+
+                // Converts all characters in string array to upper case.
+
+                inputsplit = Array.ConvertAll(inputsplit, x => x.ToUpper());
+
+
 
                 // Command section. Will only accept other commands once the robot has been successfully placed.
 
@@ -64,24 +70,53 @@ namespace ToyRobot
                     {
                         case "PLACE":
 
-                            toyrobot.Place(Int32.Parse(inputsplit[1]), Int32.Parse(inputsplit[2]), toyrobot.currentdirection);
+
+                            if (toyrobot.PlaceErrors(inputsplit))
+                            {
+                                foreach (string error in toyrobot.GetPlaceErrors(inputsplit))
+                                {
+                                    Console.WriteLine(error);
+                                }
+                            }
+                            else
+                            {
+                                string output = toyrobot.Place(Int32.Parse(inputsplit[1]), Int32.Parse(inputsplit[2]), toyrobot.currentdirection);
+                                Console.WriteLine(output);
+
+                            }
+
                             break;
+
+
 
 
                         case "MOVE":
-                            toyrobot.Move();
+                            bool result = toyrobot.Move();
+
+                            if (result)
+                            {
+                                Console.WriteLine("You moved {0} to {1},{2}", toyrobot.currentdirection,toyrobot.x,toyrobot.y);
+                            }
+                            else
+                            {
+                                Console.WriteLine("You can't move {0}!", toyrobot.currentdirection);
+                            }
+
                             break;
 
                         case "LEFT":
+
                             toyrobot.TurnLeft();
+                            Console.WriteLine("You're now facing {0}!", toyrobot.currentdirection);
                             break;
 
                         case "RIGHT":
                             toyrobot.TurnRight();
+                            Console.WriteLine("You're now facing {0}!", toyrobot.currentdirection);
                             break;
 
                         case "REPORT":
-                            Console.WriteLine("{0},{1},{2}", toyrobot.x, toyrobot.y, toyrobot.currentdirection);
+                            Console.WriteLine(toyrobot.Report());
                             break;
 
                         default:
@@ -101,9 +136,19 @@ namespace ToyRobot
                     {
                         case "PLACE":
 
+                            if (toyrobot.PlaceErrors(inputsplit))
+                            {
+                                foreach (string error in toyrobot.GetPlaceErrors(inputsplit))
+                                {
+                                    Console.WriteLine(error);
+                                }
+                            }
+                            else
+                            {
+                                string output = toyrobot.Place(Int32.Parse(inputsplit[1]), Int32.Parse(inputsplit[2]), inputsplit[3]);
+                                Console.WriteLine(output);
+                            }
 
-
-                            toyrobot.Place(Int32.Parse(inputsplit[1]), Int32.Parse(inputsplit[2]), inputsplit[3]);
                             break;
 
 
@@ -132,7 +177,7 @@ namespace ToyRobot
 
         }
 
-        
+
 
 
 
