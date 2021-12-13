@@ -16,6 +16,7 @@ namespace ToyRobot
             // Console text on how to use and commands.
 
             Console.WriteLine("Telstra Purple Interview" +
+                Environment.NewLine +
                 "1. This application allows you to move a Toy Robot inside a 6x6 grid." +
                 Environment.NewLine +
                 "2. First place the robot inside the grid using the command PLACE X,Y,DIRECTION:" +
