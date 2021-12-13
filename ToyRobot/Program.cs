@@ -9,11 +9,8 @@ namespace ToyRobot
 {
     public class Program
     {
-        // Public variables for the x & y axis of the grid.
-
         public static void Main(string[] args)
         {
-
             ToyRobot toyrobot = new ToyRobot();
 
             // Console text on how to use and commands.
@@ -44,9 +41,7 @@ namespace ToyRobot
             // checking console input for recognised commands.
 
             do
-
             {
-
                 string input;
                 input = Console.ReadLine();
 
@@ -60,7 +55,7 @@ namespace ToyRobot
 
                 // Command section. Will only accept other commands once the robot has been successfully placed.
 
-                if (toyrobot.placed)
+                if (toyrobot.Placed)
                 {
                     switch (inputSplit[0])
                     {
@@ -75,11 +70,9 @@ namespace ToyRobot
                             }
                             else
                             {
-                                string output = toyrobot.Place(Int32.Parse(inputSplit[1]), Int32.Parse(inputSplit[2]), toyrobot.currentdirection);
+                                string output = toyrobot.Place(Int32.Parse(inputSplit[1]), Int32.Parse(inputSplit[2]), toyrobot.CurrentDirection);
                                 Console.WriteLine(output);
-
                             }
-
                             break;
 
                         case "MOVE":
@@ -88,24 +81,23 @@ namespace ToyRobot
 
                             if (result)
                             {
-                                Console.WriteLine("You moved {0} to {1},{2}", toyrobot.currentdirection,toyrobot.x,toyrobot.y);
+                                Console.WriteLine("You moved {0} to {1},{2}", toyrobot.CurrentDirection,toyrobot.x,toyrobot.y);
                             }
                             else
                             {
-                                Console.WriteLine("You can't move {0}!", toyrobot.currentdirection);
+                                Console.WriteLine("You can't move {0}!", toyrobot.CurrentDirection);
                             }
-
                             break;
 
                         case "LEFT":
 
                             toyrobot.TurnLeft();
-                            Console.WriteLine("You're now facing {0}!", toyrobot.currentdirection);
+                            Console.WriteLine("You're now facing {0}!", toyrobot.CurrentDirection);
                             break;
 
                         case "RIGHT":
                             toyrobot.TurnRight();
-                            Console.WriteLine("You're now facing {0}!", toyrobot.currentdirection);
+                            Console.WriteLine("You're now facing {0}!", toyrobot.CurrentDirection);
                             break;
 
                         case "REPORT":
@@ -115,20 +107,13 @@ namespace ToyRobot
                         default:
                             Console.WriteLine("Invalid command");
                             break;
-
-
                     }
-
                 }
-
                 else
-
                 {
-
                     switch (inputSplit[0])
                     {
                         case "PLACE":
-
                             if (toyrobot.PlaceErrors(inputSplit))
                             {
                                 foreach (string error in toyrobot.GetPlaceErrors(inputSplit))
@@ -141,21 +126,14 @@ namespace ToyRobot
                                 string output = toyrobot.Place(Int32.Parse(inputSplit[1]), Int32.Parse(inputSplit[2]), inputSplit[3]);
                                 Console.WriteLine(output);
                             }
-
                             break;
 
                         default:
                             Console.WriteLine("Pleace use the PLACE command to place the robot e.g. PLACE 2,3,SOUTH");
                             break;
-
                     }
-
                 }
-
             } while (!Console.KeyAvailable);
-
         }
-
     }
-
 }

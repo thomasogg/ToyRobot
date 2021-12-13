@@ -5,75 +5,66 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ToyRobot
-
 {
     public class ToyRobot
     {
-        public int x = 0;
-        public int y = 0;
+        public int x { get; set; } = 0;
+        public int y { get; set; } = 0;
         readonly public int maxrow = 5;
         readonly public int maxcol = 5;
         readonly public int maxpara = 4;
-        public bool placed = false;
-        public string currentdirection = string.Empty;
+        public bool Placed { get; set; } = false;
+        public string CurrentDirection { get; set; } = string.Empty;
 
         public string Place(int row, int col, string direction)
-
         {
-          string returnvalue = string.Empty;
-
-            // Sets the first direction when robot is placed.
+            // Sets the first direction when robot is placed
 
             switch (direction)
             {
                 case "NORTH":
-                    currentdirection = direction;
+                    CurrentDirection = direction;
                     break;
 
                 case "EAST":
-                    currentdirection = direction;
+                    CurrentDirection = direction;
                     break;
 
                 case "SOUTH":
-                    currentdirection = direction;
+                    CurrentDirection = direction;
                     break;
                 case "WEST":
-                    currentdirection = direction;
+                    CurrentDirection = direction;
                     break;
-                default:
-                    returnvalue = "Provided direction isn't in a valid format";
-                    return returnvalue;
 
+                default:
+                    return "Provided direction isn't in a valid format";
             }
 
             // Checking to see if provided x & y values are inside the grid.
 
             if (row >= 0 && row <= maxrow && col >= 0 && col <= maxcol)
-
             {
                 x = row;
                 y = col;
-                placed = true;
-                returnvalue = string.Format("Successfully placed robot at {0},{1} facing {2}", x, y, currentdirection);
+                Placed = true;
+                return string.Format("Successfully placed robot at {0},{1} facing {2}", x, y, CurrentDirection);
             }
             else
             {
-                returnvalue = "Provided X & Y values aren't inside a 6x6 grid"; 
+                return "Provided X & Y values aren't inside a 6x6 grid"; 
             }
-
-            return returnvalue;
         }
 
         public bool Move()
-
         {
             // Uses the current direction to determine if moves is out of bounds, otherwise robot is moved.
-            switch (currentdirection)
+            switch (CurrentDirection)
             {
                 case "NORTH":
                     if (y + 1 <= 5)
                     {
-                        y = y + 1; ;
+                        y = y + 1;
                         return true;
                     }
                     break;
@@ -103,59 +94,57 @@ namespace ToyRobot
                     }
                     break;
             }
-
             return false;
-
         }
 
         public void TurnLeft()
         {
-            switch (currentdirection)
+            switch (CurrentDirection)
             {
                 case "NORTH":
-                    currentdirection = "WEST";
+                    CurrentDirection = "WEST";
                     break;
 
                 case "EAST":
-                    currentdirection = "NORTH";
+                    CurrentDirection = "NORTH";
                     break;
 
                 case "SOUTH":
-                    currentdirection = "EAST";
-                    break;
-                case "WEST":
-                    currentdirection = "SOUTH";
+                    CurrentDirection = "EAST";
                     break;
 
+                case "WEST":
+                    CurrentDirection = "SOUTH";
+                    break;
             }
         }
 
         public void TurnRight()
         {
-            switch (currentdirection)
+            switch (CurrentDirection)
             {
                 case "NORTH":
-                    currentdirection = "EAST";
+                    CurrentDirection = "EAST";
                     break;
 
                 case "EAST":
-                    currentdirection = "SOUTH";
+                    CurrentDirection = "SOUTH";
                     break;
 
                 case "SOUTH":
-                    currentdirection = "WEST";
+                    CurrentDirection = "WEST";
                     break;
                 case "WEST":
-                    currentdirection = "NORTH";
+                    CurrentDirection = "NORTH";
                     break;
             }
         }
 
         public string Report()
         {
-            string output = string.Format("{0},{1},{2}", x, y, currentdirection);
-            return output;
+            return string.Format("{0},{1},{2}", x, y, CurrentDirection);
         }
+
         public bool PlaceErrors(string[] input)
         {
             return GetPlaceErrors(input).Any();
@@ -164,19 +153,15 @@ namespace ToyRobot
         public IEnumerable<string> GetPlaceErrors(string[] input)
         {
             int numbercheck;
-
-            if (placed)
+            if (Placed)
             {
                 if (!(input.Length == maxpara - 1))
                 {
                     yield return "Incorrect format has been supplied.Format must be PLACE X,Y e.g. PLACE 2,3";
                 }
-                else
+                else if (!(int.TryParse(input[1], out numbercheck) && int.TryParse(input[2], out numbercheck)))
                 {
-                    if (!(int.TryParse(input[1], out numbercheck) && int.TryParse(input[2], out numbercheck)))
-                    {
-                        yield return "X/Y parameters provided weren't valid numbers.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3,NORTH";
-                    }
+                    yield return "X/Y parameters provided weren't valid numbers.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3";
                 }
             }
             else
@@ -185,16 +170,12 @@ namespace ToyRobot
                 {
                     yield return "Incorrect format has been supplied.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3,NORTH";
                 }
-                else
+                else if (!(int.TryParse(input[1], out numbercheck) && int.TryParse(input[2], out numbercheck)))
                 {
-                    if (!(int.TryParse(input[1], out numbercheck) && int.TryParse(input[2], out numbercheck)))
-                    {
                         yield return "X/Y parameters provided weren't valid numbers.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3,NORTH";
-                    }
                 }
             }
             yield break;
         }
-
     }
 }
