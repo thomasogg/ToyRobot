@@ -42,8 +42,7 @@ namespace ToyRobot
 
             do
             {
-                string input;
-                input = Console.ReadLine();
+                string input = Console.ReadLine();
 
                 // Splits the PLACE command into a string array for arguements.
 
