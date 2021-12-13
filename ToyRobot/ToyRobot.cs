@@ -16,11 +16,11 @@ namespace ToyRobot
         readonly public int maxpara = 4;
         public bool placed = false;
         public string currentdirection = string.Empty;
+
         public string Place(int row, int col, string direction)
 
         {
           string returnvalue = string.Empty;
-
 
             // Sets the first direction when robot is placed.
 
@@ -44,12 +44,11 @@ namespace ToyRobot
                     returnvalue = "Provided direction isn't in a valid format";
                     return returnvalue;
 
-
             }
 
             // Checking to see if provided x & y values are inside the grid.
 
-            if (row >= 0 && row < maxrow && col >= 0 && col < maxcol)
+            if (row >= 0 && row <= maxrow && col >= 0 && col <= maxcol)
 
             {
                 x = row;
@@ -72,67 +71,45 @@ namespace ToyRobot
             switch (currentdirection)
             {
                 case "NORTH":
-                    if (y + 1 > 5)
-                    {
-                        return false;
-                    }
-                    else
+                    if (y + 1 <= 5)
                     {
                         y = y + 1; ;
                         return true;
                     }
-
+                    break;
 
                 case "EAST":
 
-                    if (x + 1 > 5)
-                    {
-                        return false;
-                    }
-                    else
+                    if (x + 1 <= 5)
                     {
                         x = x + 1;
                         return true;
                     }
-
-
+                    break;
 
                 case "SOUTH":
-                    if (y - 1 < 0)
-                    {
-                        return false;
-
-                    }
-                    else
+                    if (y - 1 >= 0)
                     {
                         y = y - 1;
-                        return false;
+                        return true;
                     }
-
+                    break;
 
                 case "WEST":
-                    if (x - 1 < 0)
-                    {
-                        return false;
-                    }
-                    else
+                    if (x - 1 >= 0)
                     {
                         x = x - 1;
                         return true;
                     }
-
-
-
+                    break;
             }
 
-            return true;
+            return false;
 
         }
 
         public void TurnLeft()
         {
-
-
             switch (currentdirection)
             {
                 case "NORTH":
@@ -151,15 +128,10 @@ namespace ToyRobot
                     break;
 
             }
-
-
-
         }
 
         public void TurnRight()
         {
-
-
             switch (currentdirection)
             {
                 case "NORTH":
@@ -176,7 +148,6 @@ namespace ToyRobot
                 case "WEST":
                     currentdirection = "NORTH";
                     break;
-
             }
         }
 
@@ -191,13 +162,8 @@ namespace ToyRobot
         }
 
         public IEnumerable<string> GetPlaceErrors(string[] input)
-
-
-
         {
-
             int numbercheck;
-
 
             if (placed)
             {

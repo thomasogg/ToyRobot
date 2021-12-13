@@ -11,8 +11,6 @@ namespace ToyRobot
     {
         // Public variables for the x & y axis of the grid.
 
-
-
         public static void Main(string[] args)
         {
 
@@ -54,44 +52,39 @@ namespace ToyRobot
 
                 // Splits the PLACE command into a string array for arguements.
 
-                string[] inputsplit = input.Split(' ', ',');
+                string[] inputSplit = input.Split(' ', ',');
 
                 // Converts all characters in string array to upper case.
 
-                inputsplit = Array.ConvertAll(inputsplit, x => x.ToUpper());
-
-
+                inputSplit = Array.ConvertAll(inputSplit, x => x.ToUpper());
 
                 // Command section. Will only accept other commands once the robot has been successfully placed.
 
                 if (toyrobot.placed)
                 {
-                    switch (inputsplit[0])
+                    switch (inputSplit[0])
                     {
                         case "PLACE":
 
-
-                            if (toyrobot.PlaceErrors(inputsplit))
+                            if (toyrobot.PlaceErrors(inputSplit))
                             {
-                                foreach (string error in toyrobot.GetPlaceErrors(inputsplit))
+                                foreach (string error in toyrobot.GetPlaceErrors(inputSplit))
                                 {
                                     Console.WriteLine(error);
                                 }
                             }
                             else
                             {
-                                string output = toyrobot.Place(Int32.Parse(inputsplit[1]), Int32.Parse(inputsplit[2]), toyrobot.currentdirection);
+                                string output = toyrobot.Place(Int32.Parse(inputSplit[1]), Int32.Parse(inputSplit[2]), toyrobot.currentdirection);
                                 Console.WriteLine(output);
 
                             }
 
                             break;
 
-
-
-
                         case "MOVE":
-                            bool result = toyrobot.Move();
+                            bool result = false;
+                            result = toyrobot.Move();
 
                             if (result)
                             {
@@ -132,30 +125,28 @@ namespace ToyRobot
 
                 {
 
-                    switch (inputsplit[0])
+                    switch (inputSplit[0])
                     {
                         case "PLACE":
 
-                            if (toyrobot.PlaceErrors(inputsplit))
+                            if (toyrobot.PlaceErrors(inputSplit))
                             {
-                                foreach (string error in toyrobot.GetPlaceErrors(inputsplit))
+                                foreach (string error in toyrobot.GetPlaceErrors(inputSplit))
                                 {
                                     Console.WriteLine(error);
                                 }
                             }
                             else
                             {
-                                string output = toyrobot.Place(Int32.Parse(inputsplit[1]), Int32.Parse(inputsplit[2]), inputsplit[3]);
+                                string output = toyrobot.Place(Int32.Parse(inputSplit[1]), Int32.Parse(inputSplit[2]), inputSplit[3]);
                                 Console.WriteLine(output);
                             }
 
                             break;
 
-
                         default:
                             Console.WriteLine("Pleace use the PLACE command to place the robot e.g. PLACE 2,3,SOUTH");
                             break;
-
 
                     }
 
@@ -163,29 +154,8 @@ namespace ToyRobot
 
             } while (!Console.KeyAvailable);
 
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
-
-
-
-
-
-
-
-
     }
-
 
 }

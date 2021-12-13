@@ -10,7 +10,6 @@ namespace ToyRobotTest
         [TestMethod]
         public void Example1Input()
         {
-
             toyrobot.Place(0, 0, "NORTH");
             toyrobot.Move();
             string output = toyrobot.Report();
@@ -20,7 +19,6 @@ namespace ToyRobotTest
         [TestMethod]
         public void Example2Input()
         {
-
             toyrobot.Place(0, 0, "NORTH");
             toyrobot.TurnLeft();
             string output = toyrobot.Report();
@@ -30,7 +28,6 @@ namespace ToyRobotTest
         [TestMethod]
         public void Example3Input()
         {
-
             toyrobot.Place(1, 2, "EAST");
             toyrobot.Move();
             toyrobot.Move();
