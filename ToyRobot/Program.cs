@@ -81,7 +81,7 @@ namespace ToyRobot
 
                             if (result)
                             {
-                                Console.WriteLine("You moved {0} to {1},{2}", toyrobot.CurrentDirection,toyrobot.x,toyrobot.y);
+                                Console.WriteLine("You moved {0} to {1},{2}", toyrobot.CurrentDirection, toyrobot.x, toyrobot.y);
                             }
                             else
                             {

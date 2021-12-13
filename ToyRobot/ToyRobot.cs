@@ -52,7 +52,7 @@ namespace ToyRobot
             }
             else
             {
-                return "Provided X & Y values aren't inside a 6x6 grid"; 
+                return "Provided X & Y values aren't inside a 6x6 grid";
             }
         }
 
@@ -155,24 +155,24 @@ namespace ToyRobot
             int numbercheck;
             if (Placed)
             {
-                if (!(input.Length == maxpara - 1))
+                if (input.Length != maxpara - 1)
                 {
                     yield return "Incorrect format has been supplied.Format must be PLACE X,Y e.g. PLACE 2,3";
                 }
-                else if (!(int.TryParse(input[1], out numbercheck) && int.TryParse(input[2], out numbercheck)))
+               if (!(int.TryParse(input[1], out numbercheck) && int.TryParse(input[2], out numbercheck)))
                 {
                     yield return "X/Y parameters provided weren't valid numbers.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3";
                 }
             }
             else
             {
-                if (!(input.Length == maxpara))
+                if (input.Length != maxpara)
                 {
                     yield return "Incorrect format has been supplied.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3,NORTH";
                 }
-                else if (!(int.TryParse(input[1], out numbercheck) && int.TryParse(input[2], out numbercheck)))
+               if (!(int.TryParse(input[1], out numbercheck) && int.TryParse(input[2], out numbercheck)))
                 {
-                        yield return "X/Y parameters provided weren't valid numbers.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3,NORTH";
+                    yield return "X/Y parameters provided weren't valid numbers.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3,NORTH";
                 }
             }
             yield break;

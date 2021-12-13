@@ -8,6 +8,8 @@ namespace ToyRobotTest
     public class ExpectedOutput
     {
         ToyRobot.ToyRobot toyrobot = new ToyRobot.ToyRobot();
+        ToyRobot.Program program = new ToyRobot.Program();
+
         [TestMethod]
         public void Example1InputForPurple()
         {
@@ -15,7 +17,7 @@ namespace ToyRobotTest
             toyrobot.Move();
             string output = toyrobot.Report();
             string testcheck = "0,1,NORTH";
-            Assert.AreEqual(testcheck,output);
+            Assert.AreEqual(testcheck, output);
         }
         [TestMethod]
         public void Example2InputForPurple()
@@ -24,7 +26,7 @@ namespace ToyRobotTest
             toyrobot.TurnLeft();
             string output = toyrobot.Report();
             string testcheck = "0,0,WEST";
-            Assert.AreEqual(testcheck,output);
+            Assert.AreEqual(testcheck, output);
         }
         [TestMethod]
         public void Example3InputForPurple()
@@ -36,7 +38,7 @@ namespace ToyRobotTest
             toyrobot.Move();
             string output = toyrobot.Report();
             string testcheck = "3,3,NORTH";
-            Assert.AreEqual(testcheck,output);
+            Assert.AreEqual(testcheck, output);
         }
         [TestMethod]
         public void Example4InputForPurple()
@@ -49,13 +51,13 @@ namespace ToyRobotTest
             toyrobot.Move();
             string output = toyrobot.Report();
             string testcheck = "3,2,NORTH";
-            Assert.AreEqual(testcheck,output);
+            Assert.AreEqual(testcheck, output);
         }
         [TestMethod]
         public void PlaceOutsideOfBounds()
         {
             string output = toyrobot.Place(6, 6, "NORTH");
-            Assert.AreEqual("Provided X & Y values aren't inside a 6x6 grid",output);
+            Assert.AreEqual("Provided X & Y values aren't inside a 6x6 grid", output);
         }
         [TestMethod]
         public void MoveBeforePlace()
