@@ -114,6 +114,9 @@ namespace ToyRobot
                     switch (inputSplit[0])
                     {
                         case "PLACE":
+
+                            // Validating command input to ensure correct format was provided.
+
                             if (toyrobot.PlaceErrors(inputSplit))
                             {
                                 foreach (string error in toyrobot.GetPlaceErrors(inputSplit))

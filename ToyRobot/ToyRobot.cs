@@ -155,24 +155,38 @@ namespace ToyRobot
             int numbercheck;
             if (Placed)
             {
-                if (input.Length != maxpara - 1)
+                if(input.Length == 1)
                 {
                     yield return "Incorrect format has been supplied.Format must be PLACE X,Y e.g. PLACE 2,3";
                 }
-               if (!(int.TryParse(input[1], out numbercheck) && int.TryParse(input[2], out numbercheck)))
+                else
                 {
-                    yield return "X/Y parameters provided weren't valid numbers.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3";
+                    if (input.Length != maxpara - 1)
+                    {
+                        yield return "Incorrect format has been supplied.Format must be PLACE X,Y e.g. PLACE 2,3";
+                    }
+                    if (!(int.TryParse(input[1], out numbercheck) && int.TryParse(input[2], out numbercheck)))
+                    {
+                        yield return "X/Y parameters provided weren't valid numbers.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3";
+                    }
                 }
             }
             else
             {
-                if (input.Length != maxpara)
+                if (input.Length == 1)
                 {
-                    yield return "Incorrect format has been supplied.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3,NORTH";
+                    yield return "Incorrect format has been supplied.Format must be PLACE X,Y e.g. PLACE 2,3,NORTH";
                 }
-               if (!(int.TryParse(input[1], out numbercheck) && int.TryParse(input[2], out numbercheck)))
+                else
                 {
-                    yield return "X/Y parameters provided weren't valid numbers.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3,NORTH";
+                    if (input.Length != maxpara)
+                    {
+                        yield return "Incorrect format has been supplied.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3,NORTH";
+                    }
+                    if (!(int.TryParse(input[1], out numbercheck) && int.TryParse(input[2], out numbercheck)))
+                    {
+                        yield return "X/Y parameters provided weren't valid numbers.Format must be PLACE X,Y,DIRECTION e.g. PLACE 2,3,NORTH";
+                    }
                 }
             }
             yield break;
